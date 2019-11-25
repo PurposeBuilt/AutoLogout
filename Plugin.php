@@ -35,7 +35,7 @@ class Plugin extends PluginBase
         $this->registerConsoleCommand('pbs.run', 'PBS\Logout\Console\Run');
 
         /**
-         * Registering Mask Facade.
+         * Registering Processor Drivers Manager.
          */
         $this->app->singleton(Processor::class, function () {
             return new Processor($this->app);
