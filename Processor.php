@@ -24,6 +24,6 @@ class Processor extends Manager
      */
     public function createBackendDriver()
     {
-        return new Backend;
+        return new Backend($this->app);
     }
 }

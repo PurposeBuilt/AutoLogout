@@ -7,7 +7,7 @@ interface Driver
     /**
      * Boot the needed driver operations.
      *
-     * @return void
+     * @return self
      */
     public function boot();
 
@@ -24,4 +24,11 @@ interface Driver
      * @return \October\Rain\Support\Facade
      */
     public function facade();
+
+    /**
+     * Add the settings for this driver.
+     *
+     * @return void
+     */
+    public function settings();
 }

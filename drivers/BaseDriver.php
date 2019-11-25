@@ -5,6 +5,24 @@ namespace PBS\Logout\Drivers;
 class BaseDriver
 {
     /**
+     * The application instance.
+     *
+     * @var \Illuminate\Foundation\Application
+     */
+    protected $app;
+
+    /**
+     * Create a new driver instance.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * Logout the user.
      *
      * @param int $id

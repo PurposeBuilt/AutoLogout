@@ -2,6 +2,7 @@
 
 namespace PBS\Logout;
 
+use Backend;
 use System\Classes\PluginBase;
 
 /**
@@ -49,6 +50,25 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        app(Processor::class)->driver('backend')->boot();
+        app(Processor::class)->driver('backend')->boot()->settings();
+    }
+
+    /**
+     * Register the settings page of the plugin.
+     *
+     * @return array
+     */
+    public function registerSettings()
+    {
+        return [
+            'logout' => [
+                'label'       => 'Logout',
+                'description' => 'Manage the settings of the auto-logout plugin.',
+                'category'    => 'Users',
+                'icon'        => 'icon-globe',
+                'class'       => \PBS\Logout\Models\Settings::class,
+                'order'       => 500,
+            ]
+        ];
     }
 }

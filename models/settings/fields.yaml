@@ -1,0 +1,6 @@
+fields:
+    enabled:
+        label: Enabled
+        type: checkbox
+        default: false
+        span: left

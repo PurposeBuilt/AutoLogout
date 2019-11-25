@@ -4,9 +4,13 @@ namespace PBS\Logout\Drivers;
 
 use App;
 use Event;
+use Carbon\Carbon;
 use Backend\Models\User;
+use PBS\Logout\Models\Settings;
+use Backend\Classes\Controller;
 use Backend\Facades\BackendAuth;
 use PBS\Logout\Contracts\Driver;
+use PBS\Logout\Drivers\Backend\Middleware;
 
 class Backend extends BaseDriver implements Driver
 {
@@ -33,13 +37,18 @@ class Backend extends BaseDriver implements Driver
     /**
      * Boot the needed driver operations.
      *
-     * @return void
+     * @return self
      */
     public function boot()
     {
+
+        if (!Settings::instance()->enabled) {
+            return $this;
+        }
+
         // Check if we are currently in backend module.
         if (!App::runningInBackend()) {
-            return;
+            return $this;
         }
 
         // Listen for `backend.page.beforeDisplay` event and inject js to current controller instance.
@@ -48,9 +57,75 @@ class Backend extends BaseDriver implements Driver
                 $controller->addJs('/plugins/pbs/logout/resources/socket.io.js');
                 $controller->addJs('/plugins/pbs/logout/drivers/backend/client.js', [
                     'data-url' => $this->generateSocketIoUrl('backend'),
+                    'data-client' => 'client',
+                    'data-plugin' => 'pbs.logout'
+                ]);
+                $controller->addJs('/plugins/pbs/logout/drivers/backend/countdown.js', [
+                    'data-minutes' => Settings::instance()->backend_allowed_inactivity,
+                    'data-countdown' => 'countdown',
                     'data-plugin' => 'pbs.logout'
                 ]);
             }
+        });
+
+        // The middleware that's responsible for updating user's activity.
+        // We're updating the last activity of the user with each request.
+        $this->app['Illuminate\Contracts\Http\Kernel']->pushMiddleware(Middleware::class);
+
+        // Add log out method to all backend controllers.
+        // In that method we check the last activity,
+        // if it's more than the specified minutes,
+        // we'll log out the user.
+        Controller::extend(function ($controller) {
+            $controller->addDynamicMethod('onLogout', function () {
+                if ($this->facade()::getUser()) {
+                    if (strtotime($this->facade()::getUser()->last_activity) < strtotime("-" . Settings::instance()->backend_allowed_inactivity . " minutes")) {
+                        $this->facade()::logout();
+                        return ['logged_out' => true];
+                    }
+                }
+                return ['logged_out' => false];
+            });
+        });
+
+        // Extending the user model to add a method that
+        // updates the last activity so the middleware
+        // can use it every request.
+        $this->model()::extend(function ($model) {
+            $model->addDynamicMethod('updateActivity', function () use ($model) {
+                $model->last_activity = Carbon::now();
+                $model->save();
+            });
+        });
+
+        return $this;
+    }
+
+    /**
+     * Add the settings for this driver.
+     *
+     * @return void
+     */
+    public function settings()
+    {
+        Event::listen('backend.form.extendFields', function ($widget) {
+            if (!$widget->model instanceof Settings) {
+                return;
+            }
+
+            $widget->addFields([
+                'backend_allowed_inactivity' => [
+                    'label' => 'Admins Mins of inactivity',
+                    'comment' => 'The number of minutes of inactivity allowed before the admin gets logged out.',
+                    'span' => 'left',
+                    'default' => 1,
+                    'trigger' => [
+                        'action' => 'show',
+                        'field' => 'enabled',
+                        'condition' => 'checked'
+                    ]
+                ],
+            ]);
         });
     }
 }
