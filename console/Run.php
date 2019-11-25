@@ -1,20 +1,20 @@
 <?php
 
-namespace PBS\Logout\Console;
+namespace Pbs\Logout\Console;
 
 use Illuminate\Console\Command;
 
-class SetUp extends Command
+class Run extends Command
 {
     /**
      * @var string The console command name.
      */
-    protected $name = 'logout:setup';
+    protected $name = 'logout:run';
 
     /**
      * @var string The console command description.
      */
-    protected $description = 'Setting up and downloading the dependencies of the plugin.';
+    protected $description = 'Run the server that watches the users who leave the site and log them out!';
 
     /**
      * Execute the console command.
@@ -22,19 +22,7 @@ class SetUp extends Command
      */
     public function handle()
     {
-        $bar = $this->output->createProgressBar(3);
-
-        $bar->advance();
-
-        $this->output->writeln("\n Installing NPM dependencies.");
-
-        $bar->advance();
-
-        exec('cd plugins/pbs/logout && npm install');
-
-        $bar->advance();
-
-        $this->info("\n Done!");
+        exec('node plugins/pbs/logout/server.js');
     }
 
     /**

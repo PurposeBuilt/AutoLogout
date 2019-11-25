@@ -32,6 +32,7 @@ class Plugin extends PluginBase
     public function register()
     {
         $this->registerConsoleCommand('pbs.setup', 'PBS\Logout\Console\SetUp');
+        $this->registerConsoleCommand('pbs.run', 'PBS\Logout\Console\Run');
 
         /**
          * Registering Mask Facade.
