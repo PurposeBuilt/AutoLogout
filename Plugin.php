@@ -4,6 +4,7 @@ namespace PBS\Logout;
 
 use Backend;
 use System\Classes\PluginBase;
+use PBS\Logout\Models\Settings;
 
 /**
  * Logout Plugin Information File
@@ -51,7 +52,12 @@ class Plugin extends PluginBase
     public function boot()
     {
         app(Processor::class)->driver('backend')->boot()->settings();
-        app(Processor::class)->driver('frontend')->boot()->settings();
+
+        // If Rainlab User Plugin is installed, then we should call
+        // its processor so its settings fields will be displayed.
+        if (class_exists('Rainlab\User\Models\User')) {
+            app(Processor::class)->driver('frontend')->boot()->settings();
+        }
     }
 
     /**

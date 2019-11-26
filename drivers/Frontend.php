@@ -40,7 +40,7 @@ class Frontend extends BaseDriver implements Driver
      */
     public function boot()
     {
-        if (!Settings::instance()->enabled) {
+        if (!Settings::instance()->frontend_enabled) {
             return $this;
         }
 
@@ -79,6 +79,13 @@ class Frontend extends BaseDriver implements Driver
             }
 
             $widget->addFields([
+                'frontend_enabled' => [
+                    'label' => 'Enable Frontend Auto-Logout',
+                    'comment' => "This won't work unless you install Rainlab User Plugin",
+                    'type' => 'checkbox',
+                    'span' => 'left',
+                    'default' => false,
+                ],
                 'frontend_allowed_inactivity' => [
                     'label' => 'Users Mins of inactivity',
                     'comment' => 'The number of minutes of inactivity allowed before the frontend user gets logged out.',
@@ -86,7 +93,7 @@ class Frontend extends BaseDriver implements Driver
                     'default' => 1,
                     'trigger' => [
                         'action' => 'show',
-                        'field' => 'enabled',
+                        'field' => 'frontend_enabled',
                         'condition' => 'checked'
                     ]
                 ],

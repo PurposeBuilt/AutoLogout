@@ -41,7 +41,7 @@ class Backend extends BaseDriver implements Driver
      */
     public function boot()
     {
-        if (!Settings::instance()->enabled) {
+        if (!Settings::instance()->backend_enabled) {
             return $this;
         }
 
@@ -113,6 +113,12 @@ class Backend extends BaseDriver implements Driver
             }
 
             $widget->addFields([
+                'backend_enabled' => [
+                    'label' => 'Enable Backend Auto-Logout',
+                    'type' => 'checkbox',
+                    'span' => 'left',
+                    'default' => false,
+                ],
                 'backend_allowed_inactivity' => [
                     'label' => 'Admins Mins of inactivity',
                     'comment' => 'The number of minutes of inactivity allowed before the admin gets logged out.',
@@ -120,7 +126,7 @@ class Backend extends BaseDriver implements Driver
                     'default' => 1,
                     'trigger' => [
                         'action' => 'show',
-                        'field' => 'enabled',
+                        'field' => 'backend_enabled',
                         'condition' => 'checked'
                     ]
                 ],
