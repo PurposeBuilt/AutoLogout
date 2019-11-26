@@ -6,11 +6,12 @@ if (process.env.SOCKET_SSL == true || process.env.SOCKET_SSL == 'true'){
         key: fs.readFileSync(process.env.SSL_KEY || '/etc/nginx/ssl/server.key'),
         cert: fs.readFileSync(process.env.SSL_CRT || '/etc/nginx/ssl/server.crt')
     });
+    const http = require('https');
 } else {
     var server = require('http').Server();
+    const http = require('http');
 }
 
-const http = require('http');
 
 var io = require('socket.io')(server);
 io.attach(server);
