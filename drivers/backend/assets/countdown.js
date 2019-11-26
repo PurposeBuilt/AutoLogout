@@ -2,7 +2,7 @@
     var script = document.querySelector('script[data-countdown][data-plugin="pbs.logout"]');
     var minutes = script.getAttribute('data-minutes');
 
-    if (!minutes) {
+    if (!minutes || minutes == 0) {
         return;
     }
 

@@ -81,16 +81,16 @@ class Frontend extends BaseDriver implements Driver
             $widget->addFields([
                 'frontend_enabled' => [
                     'label' => 'Enable Frontend Auto-Logout',
-                    'comment' => "This won't work unless you install Rainlab User Plugin",
+                    'comment' => "This option will auto-logout users who leave the site entirely. This won't work unless you install Rainlab User Plugin.",
                     'type' => 'checkbox',
                     'span' => 'left',
                     'default' => false,
                 ],
                 'frontend_allowed_inactivity' => [
                     'label' => 'Users Mins of inactivity',
-                    'comment' => 'The number of minutes of inactivity allowed before the frontend user gets logged out.',
-                    'span' => 'left',
-                    'default' => 1,
+                    'comment' => 'The number of minutes of inactivity allowed before the frontend user gets logged out. Make it zero if you don\'nt want to logout the user after amount of inactivity time.',
+                    'span' => 'right',
+                    'default' => 0,
                     'trigger' => [
                         'action' => 'show',
                         'field' => 'frontend_enabled',

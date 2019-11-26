@@ -115,15 +115,16 @@ class Backend extends BaseDriver implements Driver
             $widget->addFields([
                 'backend_enabled' => [
                     'label' => 'Enable Backend Auto-Logout',
+                    'comment' => 'This option will auto-logout admins who leave the dashboard entirely.',
                     'type' => 'checkbox',
                     'span' => 'left',
                     'default' => false,
                 ],
                 'backend_allowed_inactivity' => [
                     'label' => 'Admins Mins of inactivity',
-                    'comment' => 'The number of minutes of inactivity allowed before the admin gets logged out.',
-                    'span' => 'left',
-                    'default' => 1,
+                    'comment' => 'The number of minutes of inactivity allowed before the admin gets logged out. Make it zero if you don\'nt want to logout the user after amount of inactivity time.',
+                    'span' => 'right',
+                    'default' => 0,
                     'trigger' => [
                         'action' => 'show',
                         'field' => 'backend_enabled',
