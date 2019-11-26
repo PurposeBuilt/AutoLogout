@@ -41,7 +41,6 @@ class Backend extends BaseDriver implements Driver
      */
     public function boot()
     {
-
         if (!Settings::instance()->enabled) {
             return $this;
         }
@@ -55,12 +54,12 @@ class Backend extends BaseDriver implements Driver
         Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
             if ($this->facade()::check()) {
                 $controller->addJs('/plugins/pbs/logout/resources/socket.io.js');
-                $controller->addJs('/plugins/pbs/logout/drivers/backend/client.js', [
+                $controller->addJs('/plugins/pbs/logout/drivers/backend/assets/client.js', [
                     'data-url' => $this->generateSocketIoUrl('backend'),
                     'data-client' => 'client',
                     'data-plugin' => 'pbs.logout'
                 ]);
-                $controller->addJs('/plugins/pbs/logout/drivers/backend/countdown.js', [
+                $controller->addJs('/plugins/pbs/logout/drivers/backend/assets/countdown.js', [
                     'data-minutes' => Settings::instance()->backend_allowed_inactivity,
                     'data-countdown' => 'countdown',
                     'data-plugin' => 'pbs.logout'
