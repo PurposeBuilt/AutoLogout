@@ -6,11 +6,11 @@
         return;
     }
 
-    clearTimeout(backendTimer);
+    clearTimeout(frontendTimer);
 
     function startTimer() {
         return setTimeout(function() {
-            $.request('onLogout', {
+            $.request('onLogoutUser', {
                 success: function (data) {
                     if (data.logged_out) {
                         window.location.reload();
@@ -21,6 +21,6 @@
             });
         }, minutes * 60 * 1200);
     }
-    var backendTimer = startTimer();
+    var frontendTimer = startTimer();
 
 })();

@@ -22,7 +22,7 @@ class Middleware
     {
         $response = $next($request);
 
-        if (!App::runningInBackend() && Auth::check() && $request->header('x-october-request-handler') != 'onLogout') {
+        if (!App::runningInBackend() && Auth::check() && $request->header('x-october-request-handler') != 'onLogoutUser') {
             Auth::user()->updateActivity();
         }
 
