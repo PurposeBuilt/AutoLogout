@@ -1,6 +1,6 @@
 <?php
 
-use Schema;
+use October\Rain\Support\Facades\Schema;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateFrontEndUsersTable extends Migration
