@@ -2,3 +2,7 @@
 1.0.2:
     - Add activity timestamp to backend users table.
     - update_backend_users_table.php
+1.0.3:
+    - Add activity timestamp to frontend users table.
+    - update_frontend_users_table.php
+  

@@ -51,6 +51,7 @@ class Plugin extends PluginBase
     public function boot()
     {
         app(Processor::class)->driver('backend')->boot()->settings();
+        app(Processor::class)->driver('frontend')->boot()->settings();
     }
 
     /**
@@ -69,6 +70,18 @@ class Plugin extends PluginBase
                 'class'       => \PBS\Logout\Models\Settings::class,
                 'order'       => 500,
             ]
+        ];
+    }
+
+    /**
+     * Registering the needed components.
+     *
+     * @return array
+     */
+    public function registerComponents()
+    {
+        return [
+            'PBS\Logout\Components\Frontend' => 'autologout'
         ];
     }
 }

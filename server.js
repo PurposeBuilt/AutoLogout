@@ -22,24 +22,29 @@ io.use((socket, next) => {
     return next();
 });
 
-var openConnections = [];
+var openConnections = {};
 
 io.on('connection', (socket) => {
+    var id = socket.handshake.query.user_id;
+    var driver = socket.handshake.query.driver;
 
-    openConnections.push(socket.handshake.query.user_id);
+    if (driver in openConnections) {
+        openConnections[driver].push(id);
+    } else {
+        openConnections[driver] = []
+        openConnections[driver].push(id);
+    }
 
     socket.on('disconnect', () => {
 
-        var index = openConnections.indexOf(socket.handshake.query.user_id);
+        var index = openConnections[driver].indexOf(socket.handshake.query.user_id);
 
         if (index > -1) {
-            openConnections.splice(index, 1);
+            openConnections[driver].splice(index, 1);
         }
-        var id = socket.handshake.query.user_id;
-        var driver = socket.handshake.query.driver;
 
         setTimeout(() => {
-            if (openConnections.includes(socket.handshake.query.user_id)) {
+            if (openConnections[driver].includes(socket.handshake.query.user_id)) {
                 // The user is back! In this scenario, The user was either refreshing
                 // the page, or going to another page on the same site.
                 // So we're ok to keep him logged in.
