@@ -43,6 +43,6 @@ class BaseDriver
      */
     public function generateSocketIoUrl($driver)
     {
-        return config('app.url') . ':4000' . '?driver=' . strtolower($driver) . '&&user_id=' . $this->facade()::getUser()->id;
+        return config('app.url') . ':3000' . '?driver=' . strtolower($driver) . '&&user_id=' . $this->facade()::getUser()->id;
     }
 }
