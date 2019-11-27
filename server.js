@@ -1,15 +1,17 @@
 require('dotenv').config()
 
+var port = process.argv[process.argv.length-1] != undefined ? process.argv[process.argv.length-1] : 3000;
+
 if (process.env.SOCKET_SSL == true || process.env.SOCKET_SSL == 'true'){
     var fs = require ('fs');
     var server = require('https').createServer({
         key: fs.readFileSync(process.env.SSL_KEY || '/etc/nginx/ssl/server.key'),
         cert: fs.readFileSync(process.env.SSL_CRT || '/etc/nginx/ssl/server.crt')
     });
-    const http = require('https');
+    var http = require('https');
 } else {
     var server = require('http').Server();
-    const http = require('http');
+    var http = require('http');
 }
 
 
@@ -64,4 +66,6 @@ io.on('connection', (socket) => {
 });
 
 
-server.listen(3000);
+server.listen(port);
+
+console.log(`Server running on port: ${port}`);

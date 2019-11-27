@@ -1,0 +1,4 @@
+fields:
+    port:
+        label: Port Number
+        comment: This port will be used in the plugin to generate connections with users. When you change this value you MUST restart `logout:run` command. Also, Make sure this port is working and open in the server firewall so the plugin can function properly.

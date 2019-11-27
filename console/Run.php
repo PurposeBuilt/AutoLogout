@@ -2,6 +2,7 @@
 
 namespace Pbs\Logout\Console;
 
+use PBS\Logout\Models\Settings;
 use Illuminate\Console\Command;
 
 class Run extends Command
@@ -22,7 +23,8 @@ class Run extends Command
      */
     public function handle()
     {
-        exec('node plugins/pbs/logout/server.js');
+        $port = Settings::instance()->port;
+        exec('node plugins/pbs/logout/server.js ' . $port);
     }
 
     /**

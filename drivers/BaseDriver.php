@@ -2,6 +2,8 @@
 
 namespace PBS\Logout\Drivers;
 
+use PBS\Logout\Models\Settings;
+
 class BaseDriver
 {
     /**
@@ -43,6 +45,6 @@ class BaseDriver
      */
     public function generateSocketIoUrl($driver)
     {
-        return config('app.url') . ':3000' . '?driver=' . strtolower($driver) . '&&user_id=' . $this->facade()::getUser()->id;
+        return config('app.url') . ':' . Settings::instance()->port . '?driver=' . strtolower($driver) . '&&user_id=' . $this->facade()::getUser()->id;
     }
 }
