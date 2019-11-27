@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
                     console.log("Error: " + err.message);
                 });
             }
-        }, 3000)
+        }, 5000)
     });
 });
 
