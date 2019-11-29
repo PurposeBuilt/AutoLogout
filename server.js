@@ -14,7 +14,6 @@ if (process.env.SOCKET_SSL == true || process.env.SOCKET_SSL == 'true'){
     var http = require('http');
 }
 
-
 var io = require('socket.io')(server);
 io.attach(server);
 
@@ -39,32 +38,35 @@ io.on('connection', (socket) => {
     }
 
     socket.on('disconnect', () => {
-
-        var index = openConnections[driver].indexOf(socket.handshake.query.user_id);
+        var index = openConnections[driver].indexOf(id);
 
         if (index > -1) {
             openConnections[driver].splice(index, 1);
         }
 
-        setTimeout(() => {
-            if (openConnections[driver].includes(socket.handshake.query.user_id)) {
+        var x = 0;
+        var intervalID = setInterval(() => {
+            if (openConnections[driver].includes(id)) {
+                clearInterval(intervalID);
                 // The user is back! In this scenario, The user was either refreshing
                 // the page, or going to another page on the same site.
                 // So we're ok to keep him logged in.
             } else {
-                // The user didn't connect for more than 3 seconds, So it means
+                // The user didn't connect for more than 5 seconds, So it means
                 // he left the site, closed all site tabs, closed browser,
                 // the browser crashed, Or the system crashed.
-                http.get(`${process.env.APP_URL}/pbs/logout/${driver}/${id}`, (resp) => {
-                    // The User has been logged out supposedly.
-                }).on("error", (err) => {
-                    console.log("Error: " + err.message);
-                });
+                if (++x === 5) {
+                    clearInterval(intervalID);
+                    http.get(`${process.env.APP_URL}/pbs/logout/${driver}/${id}`, (resp) => {
+                        // The User has been logged out supposedly.
+                    }).on("error", (err) => {
+                        console.log("Error: " + err.message);
+                    });
+                }
             }
-        }, 5000)
+        }, 1000)
     });
 });
-
 
 server.listen(port);
 
