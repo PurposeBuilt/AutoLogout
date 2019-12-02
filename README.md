@@ -28,8 +28,8 @@ That was supposed to be impossible but we were able to figure it out!
 
 ## Prerequisites
 You need to make sure your server has the followings installed and accessible from withing the command line:
-1- NodeJS.
-2- NPM.
+- NodeJS.
+- NPM.
 
 ## Getting Started
 First step to use the plugin after installing it from OctoberCMS marketplace is to set it up. We've created a command to make it a lot simpler for you! All you need is to run this command from the project root!
