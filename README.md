@@ -27,7 +27,7 @@ That was supposed to be impossible but we were able to figure it out!
 	- Settings -> System -> Updates & Plugins -> Install Plugins -> Search for `Auto-logout`
 
 ## Prerequisites
-You need to make sure your server has the followings installed and accessible from withing the command line:
+You need to make sure your server has the followings installed and accessible from the command line:
 - NodeJS.
 - NPM.
 
@@ -96,7 +96,7 @@ The plugin is using (The Builder/Manager) design pattern using a class that come
 ```php
 Processor::extend('writer', function($app)
 {
-	// Writer class should implement PBS\Logout\Contracts\Driver
+    // Writer class should implement PBS\Logout\Contracts\Driver
     return new Writer($app);
 });
 ```
