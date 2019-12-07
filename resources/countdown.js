@@ -2,6 +2,7 @@
     var script = document.querySelector('script[data-countdown][data-plugin="pbs.logout"]');
     var minutes = script.getAttribute('data-minutes');
     var method = script.getAttribute('data-method');
+    var customClass = script.getAttribute('data-custom-class');
 
     if (!minutes || minutes == 0) {
         return;
@@ -23,6 +24,7 @@
                 showCancelButton: true,
                 focusConfirm: false,
                 timer: 5000,
+                customClass: customClass,
                 timerProgressBar: true,
                 confirmButtonText:
                   'Continue!',

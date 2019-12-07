@@ -64,7 +64,8 @@ class Backend extends BaseDriver implements Driver
                     'data-minutes' => Settings::instance()->backend_allowed_inactivity,
                     'data-countdown' => 'countdown',
                     'data-plugin' => 'pbs.logout',
-                    'data-method' => 'onLogout'
+                    'data-method' => 'onLogout',
+                    'data-custom-class' => Settings::instance()->backend_popup_custom_class
                 ]);
             }
         });
@@ -125,6 +126,17 @@ class Backend extends BaseDriver implements Driver
                 'backend_allowed_inactivity' => [
                     'label' => 'Admins Mins of inactivity',
                     'comment' => 'The number of minutes of inactivity allowed before the admin gets logged out. Make it zero if you don\'nt want to logout the user after amount of inactivity time.',
+                    'span' => 'right',
+                    'default' => 0,
+                    'trigger' => [
+                        'action' => 'show',
+                        'field' => 'backend_enabled',
+                        'condition' => 'checked'
+                    ]
+                ],
+                'backend_popup_custom_class' => [
+                    'label' => 'Backend Popup Custom Class',
+                    'comment' => 'If you want to add a custom class for the warning modal in backend dashboard.',
                     'span' => 'right',
                     'default' => 0,
                     'trigger' => [

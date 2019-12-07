@@ -97,6 +97,17 @@ class Frontend extends BaseDriver implements Driver
                         'condition' => 'checked'
                     ]
                 ],
+                'frontend_popup_custom_class' => [
+                    'label' => 'Frontend Popup Custom Class',
+                    'comment' => 'If you want to add a custom class for the warning modal in frontend.',
+                    'span' => 'right',
+                    'default' => 0,
+                    'trigger' => [
+                        'action' => 'show',
+                        'field' => 'frontend_enabled',
+                        'condition' => 'checked'
+                    ]
+                ],
             ]);
         });
     }

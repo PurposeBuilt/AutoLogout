@@ -48,7 +48,8 @@ class Frontend extends ComponentBase
                 'data-minutes' => Settings::instance()->frontend_allowed_inactivity,
                 'data-countdown' => 'countdown',
                 'data-plugin' => 'pbs.logout',
-                'data-method' => 'onLogoutUser'
+                'data-method' => 'onLogoutUser',
+                'data-custom-class' => Settings::instance()->frontend_popup_custom_class
             ]);
         }
     }
