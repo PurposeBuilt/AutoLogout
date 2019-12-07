@@ -37,16 +37,18 @@ class Frontend extends ComponentBase
         $this->driver = app(Processor::class)->driver('frontend');
 
         if ($this->driver->facade()::check()) {
+            $this->addJs('https://cdn.jsdelivr.net/npm/sweetalert2@9');
             $this->addJs('/plugins/pbs/logout/resources/socket.io.js');
-            $this->addJs('/plugins/pbs/logout/drivers/frontend/assets/client.js', [
+            $this->addJs('/plugins/pbs/logout/resources/client.js', [
                 'data-url' => $this->driver->generateSocketIoUrl('frontend'),
                 'data-client' => 'client',
                 'data-plugin' => 'pbs.logout'
             ]);
-            $this->addJs('/plugins/pbs/logout/drivers/frontend/assets/countdown.js', [
+            $this->addJs('/plugins/pbs/logout/resources/countdown.js', [
                 'data-minutes' => Settings::instance()->frontend_allowed_inactivity,
                 'data-countdown' => 'countdown',
-                'data-plugin' => 'pbs.logout'
+                'data-plugin' => 'pbs.logout',
+                'data-method' => 'onLogoutUser'
             ]);
         }
     }

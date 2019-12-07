@@ -53,16 +53,18 @@ class Backend extends BaseDriver implements Driver
         // Listen for `backend.page.beforeDisplay` event and inject js to current controller instance.
         Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
             if ($this->facade()::check()) {
+                $controller->addJs('https://cdn.jsdelivr.net/npm/sweetalert2@9');
                 $controller->addJs('/plugins/pbs/logout/resources/socket.io.js');
-                $controller->addJs('/plugins/pbs/logout/drivers/backend/assets/client.js', [
+                $controller->addJs('/plugins/pbs/logout/resources/client.js', [
                     'data-url' => $this->generateSocketIoUrl('backend'),
                     'data-client' => 'client',
                     'data-plugin' => 'pbs.logout'
                 ]);
-                $controller->addJs('/plugins/pbs/logout/drivers/backend/assets/countdown.js', [
+                $controller->addJs('/plugins/pbs/logout/resources/countdown.js', [
                     'data-minutes' => Settings::instance()->backend_allowed_inactivity,
                     'data-countdown' => 'countdown',
-                    'data-plugin' => 'pbs.logout'
+                    'data-plugin' => 'pbs.logout',
+                    'data-method' => 'onLogout'
                 ]);
             }
         });
