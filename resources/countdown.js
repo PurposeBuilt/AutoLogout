@@ -17,7 +17,7 @@
                 icon: 'warning',
                 html:
                   'You have been inactive for more than <b>' + minutes + ' minutes.</b>, ' +
-                  "You'll be logged out in a <i></i> seconds unless you click continue to keep you logged in." +
+                  "You'll be logged out in <i></i> seconds unless you click continue to keep you logged in." +
                   "<br>",
                 showCloseButton: true,
                 showCancelButton: true,
