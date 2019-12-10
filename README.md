@@ -2,9 +2,6 @@
 
 Auto-Logout plugin for OctoberCMS, This plugin gives you the ability to automatically log-out users when they leave the site entirely not just closing one tab.
 
-That was supposed to be impossible but we were able to figure it out!
-![enter image description here](https://d1sz9tkli0lfjq.cloudfront.net/items/3o3g2X3v3x2G1n1C3918/%5B0c4a451c4f3a28214a23428c1a097566%5D_Image+2019-12-02+at+6.58.01+PM.png?v=7e30a992)
-
 ## Main Scenarios
 
   - 1 tab open, close tab, should be logged out.
@@ -51,7 +48,7 @@ And this command will need to be running behind the scenes, So you'll need to us
 - Make sure the port number you're using is open. To know more about firewalls on Ubuntu you can follow [this link](https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server).
 
 ## Plugin Settings
-![enter image description here](https://d1sz9tkli0lfjq.cloudfront.net/items/0f2e1w310I0e1K3N0x1h/Image%202019-12-02%20at%207.33.24%20PM.png?v=63c72307)
+![Plugin Settings](https://d1sz9tkli0lfjq.cloudfront.net/items/0d1l1h1M0g2p3j0q2p1u/Image%202019-12-10%20at%204.13.23%20PM.png?v=677a9ee0)
 
 In the plugin settings in backend admin panel you have essentially 3 settings:
 * Port Number.
@@ -59,16 +56,22 @@ In the plugin settings in backend admin panel you have essentially 3 settings:
 	* Whenever this Port Number is changed, It's a MUST to restart the `logout:run` command to be effective.
 * Enable Backend Auto-Logout.
 	* If this checkbox is checked, the `Admins Mins of inactivity` will be shown.
+	* If this checkbox is checked, the `Backend Popup Custom Class` will be shown.
 	* If this checkbox is checked, the plugin will log out backend users if they leave the backend panel.
 * `Admins Mins of inactivity`.
 	* Plus the auto-logout when the user leaves the site, you may specify the number of minutes allowed for the user to be inactive on the site before getting kicked out! Keep it `0` if you don't want this functionality.
+* `Backend Popup Custom Class`.
+	* If you want to customize the backend warning popup, you can add as many CSS classes as you need in this field.
 
 Additionally, If `Rainlab.User` plugin is installed you'll see the following fields:
 * Enable Frontend Auto-Logout.
 	* If this checkbox is checked, the `Users Mins of inactivity` will be shown.
+	* If this checkbox is checked, the `Frontend Popup Custom Class` will be shown.
 	* If this checkbox is checked, the plugin will log out frontend users if they leave the frontend site.
 * `Users Mins of inactivity`.
 	* Plus the auto-logout when the user leaves the site, you may specify the number of minutes allowed for the user to be inactive on the site before getting kicked out! Keep it `0` if you don't want this functionality.
+* `Frontend Popup Custom Class`.
+	* If you want to customize the frontend warning popup, you can add as many CSS classes as you need in this field.
 
 
 ## Using Supervisor
@@ -127,3 +130,6 @@ public function bind($abstract, $concrete = null, $shared = false)
 }
 ```
 Please note that in Laravel `@param` should be followed by two spaces, but we're not strict about that rule. You can write two or one space. It's up to you!
+
+
+- Icon By: [Mahmoud Essam](https://www.behance.net/jamaiqa)

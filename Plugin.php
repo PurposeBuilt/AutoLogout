@@ -2,9 +2,7 @@
 
 namespace PBS\Logout;
 
-use Backend;
 use System\Classes\PluginBase;
-use PBS\Logout\Models\Settings;
 
 /**
  * Logout Plugin Information File
@@ -19,10 +17,10 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'Logout',
+            'name'        => 'AutoLogout',
             'description' => 'Automatically log out users when they leave the website!',
             'author'      => 'PBS',
-            'icon'        => 'icon-leaf'
+            'icon'        => 'icon-rocket'
         ];
     }
 
@@ -71,8 +69,8 @@ class Plugin extends PluginBase
             'logout' => [
                 'label'       => 'Logout',
                 'description' => 'Manage the settings of the auto-logout plugin.',
-                'category'    => 'Users',
-                'icon'        => 'icon-globe',
+                'category'    => 'system::lang.system.categories.users',
+                'icon'        => 'icon-rocket',
                 'class'       => \PBS\Logout\Models\Settings::class,
                 'order'       => 500,
             ]
