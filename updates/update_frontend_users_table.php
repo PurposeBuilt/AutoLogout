@@ -9,16 +9,16 @@ class UpdateFrontEndUsersTable extends Migration
     {
         if (class_exists('Rainlab\User\Models\User')) {
             Schema::table('users', function ($table) {
-                $table->timestamp('last_activity')->nullable();
+                $table->timestamp('pbs_logout_last_activity')->nullable();
             });
         }
     }
 
     public function down()
     {
-        if (class_exists('Rainlab\User\Models\User') && Schema::hasColumn('users', 'last_activity')) {
+        if (class_exists('Rainlab\User\Models\User') && Schema::hasColumn('users', 'pbs_logout_last_activity')) {
             Schema::table('users', function ($table) {
-                $table->dropColumn('last_activity');
+                $table->dropColumn('pbs_logout_last_activity');
             });
         }
     }

@@ -58,7 +58,7 @@ class Frontend extends BaseDriver implements Driver
         // can use it every request.
         $this->model()::extend(function ($model) {
             $model->addDynamicMethod('updateActivity', function () use ($model) {
-                $model->last_activity = Carbon::now();
+                $model->pbs_logout_last_activity = Carbon::now();
                 $model->save();
             });
         });

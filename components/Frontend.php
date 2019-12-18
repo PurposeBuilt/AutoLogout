@@ -65,7 +65,7 @@ class Frontend extends ComponentBase
         $this->driver = app(Processor::class)->driver('frontend');
 
         if ($this->driver->facade()::getUser()) {
-            if (strtotime($this->driver->facade()::getUser()->last_activity) < strtotime("-" . Settings::instance()->frontend_allowed_inactivity . " minutes")) {
+            if (strtotime($this->driver->facade()::getUser()->pbs_logout_last_activity) < strtotime("-" . Settings::instance()->frontend_allowed_inactivity . " minutes")) {
                 $this->driver->facade()::logout();
                 return ['logged_out' => true];
             }

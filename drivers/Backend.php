@@ -81,7 +81,7 @@ class Backend extends BaseDriver implements Driver
         Controller::extend(function ($controller) {
             $controller->addDynamicMethod('onLogout', function () {
                 if ($this->facade()::getUser()) {
-                    if (strtotime($this->facade()::getUser()->last_activity) < strtotime("-" . Settings::instance()->backend_allowed_inactivity . " minutes")) {
+                    if (strtotime($this->facade()::getUser()->pbs_logout_last_activity) < strtotime("-" . Settings::instance()->backend_allowed_inactivity . " minutes")) {
                         $this->facade()::logout();
                         return ['logged_out' => true];
                     }
@@ -95,7 +95,7 @@ class Backend extends BaseDriver implements Driver
         // can use it every request.
         $this->model()::extend(function ($model) {
             $model->addDynamicMethod('updateActivity', function () use ($model) {
-                $model->last_activity = Carbon::now();
+                $model->pbs_logout_last_activity = Carbon::now();
                 $model->save();
             });
         });
